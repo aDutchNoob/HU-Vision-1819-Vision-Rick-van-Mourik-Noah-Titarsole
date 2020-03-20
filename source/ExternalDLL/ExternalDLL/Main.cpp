@@ -18,15 +18,16 @@ int main(int argc, char * argv[]) {
 	ImageFactory::setImplementation(ImageFactory::DEFAULT);
 	//ImageFactory::setImplementation(ImageFactory::STUDENT);
 
-
-	ImageIO::debugFolder = "D:\\github\\HU-Vision-1819-Vision-Rick-van-Mourik-Noah-Titarsole\\source\\ExternalDLL\\Debug";
+	//ImageIO::debugFolder = "D:\\github\\HU-Vision-1819-Vision-Rick-van-Mourik-Noah-Titarsole\\source\\ExternalDLL\\Debug";
+	ImageIO::debugFolder = "D:\\Users\\noaht\\Documents\\GitHub\\HU-Vision-1819-Vision-Rick-van-Mourik-Noah-Titarsole\\source\\ExternalDLL\\Debug";
 	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
 
 
 
 
 	RGBImage* input = ImageFactory::newRGBImage();
-	if (!ImageIO::loadImage("D:\\github\\HU-Vision-1819-Vision-Rick-van-Mourik-Noah-Titarsole\\testsets\\Set A\\TestSet Images\\male-1.png", *input)) {
+	/*if (!ImageIO::loadImage("D:\\github\\HU-Vision-1819-Vision-Rick-van-Mourik-Noah-Titarsole\\testsets\\Set A\\TestSet Images\\male-1.png", *input)) {*/
+	if (!ImageIO::loadImage("D:\\Users\\noaht\\Documents\\GitHub\\HU-Vision-1819-Vision-Rick-van-Mourik-Noah-Titarsole\\testsets\\Set A\\TestSet Images\\male-1.png", *input)) {
 		std::cout << "Image could not be loaded!" << std::endl;
 		system("pause");
 		return 0;

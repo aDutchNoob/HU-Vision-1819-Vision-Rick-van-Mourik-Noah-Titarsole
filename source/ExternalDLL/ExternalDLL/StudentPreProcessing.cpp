@@ -16,34 +16,25 @@ IntensityImage * StudentPreProcessing::stepScaleImage(const IntensityImage &imag
 }
 
 IntensityImage * StudentPreProcessing::stepEdgeDetection(const IntensityImage &image) const {
-	//std::vector<int> a = cv::getGaussianKernel(9, 1.0);
-	//std::vector<std::vector<float>> a = { {0.01, 0.08, 0.01}, {0.08, 0.64, 0.08}, {0.01, 0.08, 0.01} }
-
-	//for (int i = 0; i < a.size() - 1; i++) {
-	//	std::cout << a[i];
-	//}
+	// Gaussian
+	cv::Mat image_matrix;
+	HereBeDragons::HerLoveForWhoseDearLoveIRiseAndFall(image, image_matrix)
 
 	std::vector<std::vector<int>> blur = {	{1, 2, 1}, 
-											{2, 4, 2}, 
-											{1, 2, 1} };
+						{2, 4, 2}, 
+						{1, 2, 1} };
 	/*std::vector<int> blur_x = {1, 2, 1};
 	std::vector<int> blur_y = {1, 2, 1};*/
 
-	/*std::vector<std::vector<int>> result;
-	std::vector<std::vector<int>> result_x;
-	std::vector<std::vector<int>> result_y;*/
-
-	for (int i = 1; i < image.getHeight - 1; i++) {
-		for (int j = 1; j < image.getWidth - 1; j++) {
-			int new_val = 0;
-			std::vector<int> tmp_res = 
-			{	blur[0][0] * image.getPixel(j - 1, i -1),	blur[0][1] * image.getPixel(j , i - 1), blur[0][2] * image.getPixel(j + 1, i - 1),
-				blur[1][0] * image.getPixel(j - 1, i),		blur[1][1] * image.getPixel(j , i),		blur[1][2] * image.getPixel(j + 1 , i),
-				blur[2][0] * image.getPixel(j - 1, i + 1),	blur[2][1] * image.getPixel(j , i + 1),	blur[2][2] * image.getPixel(j + 1, i + 1) };
-			for (unsigned int i = 0; i < tmp_res.size(); i++) {
-				new_val += tmp_res[i];
-			}
-			//image.setPixel(j, i, new_val);
+	for (int i = 1; i < image_matrix.size() - 1; i++) {
+		for (int j = 1; j < image_matrix[i].size() - 1; j++) {
+			int new_val = (	blur[0][0] * image_matrix[i-1][j-1] + blur[0][1] * image_matrix[i][j-1] + blur[0][2] * image_matrix[i+1][j-1] + 
+					blur[1][0] * image_matrix[i-1][j] + blur[1][1] * image_matrix[i][j] + blur[1][2] * image_matrix[i+1][j] + 
+					blur[2][0] * image_matrix[i-1][j+1] + blur[2][1] * image_matrix[i][j+1] + blur[2][2] * image_matrix[i+1][j+1]
+				      ) / 16;
+			
+			image_matrix[i][j] = new_val;
+			
 		}
 	}
 	return nullptr;
